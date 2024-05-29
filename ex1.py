@@ -49,4 +49,5 @@ for line in pose:
     cv2.line(img, (listdata[line[0] - 5].x, listdata[line[0] - 5].y), ( listdata[line[1] - 5].x, listdata[line[1] - 5].y), (0, 0, 255), thickness=5)
 # 画像の確認
 plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+print(keypoints.data)
 plt.show()
