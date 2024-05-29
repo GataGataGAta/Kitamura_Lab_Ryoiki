@@ -14,9 +14,9 @@ for image in images:
 
 keypoints_diff = []
 
-for i in range(len(images) - 1):
+for i in range(1, len(images) - 1):
     ex1_keypoints = results_list[0][0].keypoints
-    keypoints_next = results_list[i + 1][0].keypoints
+    keypoints_next = results_list[i][0].keypoints
     
     diff = keypoints_next.data - ex1_keypoints.data
     diff_sum = np.sum(np.abs(diff.numpy()))  
