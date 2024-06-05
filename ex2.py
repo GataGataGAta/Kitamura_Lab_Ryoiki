@@ -23,6 +23,7 @@ for i in range(1, len(images) - 1):
     keypoints_diff.append((diff_sum, images[i], images[i + 1]))
 
 keypoints_diff_sorted = sorted(keypoints_diff, key=lambda x: x[0])
+# sorted関数を使っソート(新しい配列を作成)
 
 sorted_images = []
 for _, img1, img2 in keypoints_diff_sorted:
