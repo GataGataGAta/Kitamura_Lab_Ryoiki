@@ -14,25 +14,19 @@ for image in images:
 
 keypoints_diff = []
 
-for i in range(1, len(images) - 1):
+for i in range(1, len(images)):
     ex1_keypoints = results_list[0][0].keypoints
     keypoints_next = results_list[i][0].keypoints
     
     diff = keypoints_next.data - ex1_keypoints.data
     diff_sum = np.sum(np.abs(diff.numpy()))  
-    keypoints_diff.append((diff_sum, images[i], images[i + 1]))
+    keypoints_diff.append((diff_sum, images[i]))
+        
 
 keypoints_diff_sorted = sorted(keypoints_diff, key=lambda x: x[0])
 # sorted関数を使っソート(新しい配列を作成)
 
-sorted_images = []
-for _, img1, img2 in keypoints_diff_sorted:
-    if img1 not in sorted_images:
-        sorted_images.append(img1)
-    if img2 not in sorted_images:
-        sorted_images.append(img2)
+print("ソート結果")
+for img in keypoints_diff_sorted:
+    print(img[1])
 
-# 結果を出力
-print("ex1.jpgからの違いが少ないもの順にソート")
-for img in sorted_images:
-    print(img)
