@@ -2,11 +2,11 @@ import cv2
 import matplotlib.pyplot as plt
 from ultralytics import YOLO
 model = YOLO("yolov8x-pose.pt")
-results = model("mikky.jpg")
+results = model("ex1.jpg")
 keypoints = results[0].keypoints
 
 # 画像の読み込み
-img = cv2.imread('mikky.jpg')
+img = cv2.imread('ex1.jpg')
 
 class data:
     id = 0
