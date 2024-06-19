@@ -33,8 +33,15 @@ def pose_similarity(ref_keypoints, keypoints, frame):
     diff = [0, 0]
     ex1_center[0] = int((abs(ref_keypoints.data[0, 5][0] - ref_keypoints.data[0, 6][0])/2) + ref_keypoints.data[0, 6][0])
     ex1_center[1] = int((abs(ref_keypoints.data[0, 5][1] - ref_keypoints.data[0, 12][1])/2) + ref_keypoints.data[0, 6][1])
-    center[0] = int((abs(keypoints.data[0, 5][0] - keypoints.data[0, 6][0])/2) + keypoints.data[0, 6][0])
-    center[1] = int((abs(keypoints.data[0, 5][1] - keypoints.data[0, 12][1])/2) + keypoints.data[0, 6][1])
+    if(keypoints.data[0, 5][0] > keypoints.data[0, 6][0]):
+        center[0] = int((abs(keypoints.data[0, 5][0] - keypoints.data[0, 6][0])/2) + keypoints.data[0, 6][0])
+    else:
+        center[0] = int((abs(keypoints.data[0, 6][0] - keypoints.data[0, 5][0])/2) + keypoints.data[0, 5][0])
+    # 中心の座標を計算(x軸方向) 
+    if(keypoints.data[0, 5][1] > keypoints.data[0, 12][1]):
+        center[1] = int((abs(keypoints.data[0, 5][1] - keypoints.data[0, 12][1])/2) + keypoints.data[0, 12][1])
+    else:
+        center[1] = int((abs(keypoints.data[0, 12][1] - keypoints.data[0, 5][1])/2) + keypoints.data[0, 5][1])
     diff[0] = ex1_center[0] - center[0]
     diff[1] = ex1_center[1] - center[1]
     for i in range(5, 17):  
