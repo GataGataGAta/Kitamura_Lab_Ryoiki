@@ -89,7 +89,7 @@ def pose_estimation_movie(filename_in, filename_out, model, ref_keypoints):
                 cv2.line(frame, start_pt, end_pt, color, thickness=2)
             
             cv2.imshow("Movie", frame)
-            video.write(frame)
+            # video.write(frame)
 
             if cv2.waitKey(1) & 0xFF == ord("q"):
                 break
