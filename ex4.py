@@ -11,7 +11,6 @@ img = cv2.imread("ex4.jpg")
 # 検出されたボックスを取得
 boxes = results[0].boxes
 
-# 各ボックスに対して円を描く
 for box in boxes:
     # box.dataから座標を取得
     x_left = int(box.data[0][0])
