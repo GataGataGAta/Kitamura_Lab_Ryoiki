@@ -8,6 +8,9 @@ model = YOLO("yolov8n.pt")
 video_path = "ex5.mp4"
 cap = cv2.VideoCapture(video_path)
 
+# クラス名のリスト（YOLOのデフォルトのクラス名を使用）
+class_names = model.names
+
 # ビデオフレームをループする
 while cap.isOpened():
     # ビデオからフレームを読み込む
@@ -20,23 +23,31 @@ while cap.isOpened():
         # 各ボックスに対して処理
         for result in results:
             for box in result.boxes:
-                # box.dataから座標を取得
-                x_left = int(box.data[0][0])
-                y_left = int(box.data[0][1])
-                x_right = int(box.data[0][2])
-                y_right = int(box.data[0][3])
-                
-                # 各頂点に円を描画
-                cv2.line(frame, (x_left, y_left), (x_right, y_left),  (0, 0, 255) , thickness=5)
-                cv2.line(frame, (x_right, y_left), (x_right, y_right), (0, 0, 255), thickness=5 )
-                cv2.line(frame, (x_left, y_left), (x_left, y_right),  (0, 0, 255) , thickness=5)
-                cv2.line(frame, (x_left, y_right),(x_right, y_right),  (0, 0, 255), thickness=5 )
+                # クラスIDを取得
+                class_id = int(box.data[0][5])
+
+                # クラス名を取得
+                class_name = class_names[class_id]
+
+                # 'person'クラスの場合のみ処理
+                if class_name == "person":
+                    # box.dataから座標を取得
+                    x_left = int(box.data[0][0])
+                    y_left = int(box.data[0][1])
+                    x_right = int(box.data[0][2])
+                    y_right = int(box.data[0][3])
+                    
+                    # 各頂点に円を描画
+                    cv2.line(frame, (x_left, y_left), (x_right, y_left),  (0, 0, 255) , thickness=5)
+                    cv2.line(frame, (x_right, y_left), (x_right, y_right), (0, 0, 255), thickness=5 )
+                    cv2.line(frame, (x_left, y_left), (x_left, y_right),  (0, 0, 255) , thickness=5)
+                    cv2.line(frame, (x_left, y_right),(x_right, y_right),  (0, 0, 255), thickness=5 )
 
         # 注釈付きのフレームを表示
         cv2.imshow("YOLOv8トラッキング", frame)
 
         # 'q'が押されたらループから抜ける
-        if cv2.waitKey(1) & 0xFF == ord("q"):
+        if cv2.waitKey(30) & 0xFF == ord("q"):
             break
     else:
         # ビデオの終わりに到達したらループから抜ける
